@@ -41,6 +41,7 @@ export const updateBrand = async (req,res,next) => {
 
 export const deleteBrand = async (req,res,next) => {
     try {
+        const id = req.params.id
         const deleted = await deleteDoc(id,Brand);
         if(!deleted) return res.status(400).send({success:false,message:'Petición inválida'});
         return res.status(200).send({success:true,message:'Petición exitosa'});
