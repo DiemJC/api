@@ -1,7 +1,9 @@
 import { Schema , model } from 'mongoose';
 
 const Category = new Schema({
-    name:{type:String,reuired:true,unique:true},
+    id:{type:String,required:true,unique:true},
+    name:{type:String,required:true},
+    subs:[{type:String}],
     slug:{type:String,required:true},
     status:{type:Boolean,default:false},
     createdAt:{type:Date,default:Date.now()},
