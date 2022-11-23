@@ -1,29 +1,29 @@
 import { deleteDoc, updateDoc } from '.';
-import Category from '../models/store/Category';
+import SubCategory from '../models/store/SubCategory';
 
-export const createCategory = async (req,res,next) => {
+export const createSub = async (req,res,next) => {
     try {
-        const category = new Category(req.body);
-        await category.save();
+        const doc = new SubCategory(req.body);
+        await doc.save();
         return res.status(200).send({success:true,message:'Registro exitoso'});
     } catch (error) {
         next(error);
     }
 }
 
-export const getCategories = async (req,res,next) => {
+export const getSubs = async (req,res,next) => {
     try {
-        const docs = await Category.find();
+        const docs = await SubCategory.find().populate('category');
         return res.status(200).send({success:true,message:'Petición exitosa',docs});
     } catch (error) {
         next(error);       
     }
 }
 
-export const getCategoriesBy = async (req,res,next) => {
+export const getSubsBy = async (req,res,next) => {
     try {
         const id = req.params.id;
-        const docs = await Category.find({id});
+        const docs = await SubCategory.find({id});
         if(docs.length === 0) return res.status(404).send({success:false,message:'Sin registros',docs:[]});
         return res.status(200).send({success:true,message:'Petición exitosa',docs});
     } catch (error) {
@@ -31,9 +31,9 @@ export const getCategoriesBy = async (req,res,next) => {
     }
 }
 
-export const getCategoryById = async (req,res,next) => {
+export const getsubsById = async (req,res,next) => {
     try {
-        const doc = await Category.findById(req.params.id);
+        const doc = await SubCategory.findById(req.params.id).populate('category');
         if(!doc) return res.status(404).send({success:false,message:'Sin registros'});
         return res.status(200).send({success:true,message:'Petición exitosa',doc});
     } catch (error) {
@@ -41,19 +41,19 @@ export const getCategoryById = async (req,res,next) => {
     }
 }
 
-export const updateCategory = async (req,res,next) => {
+export const updateSub = async (req,res,next) => {
     try {
-        const old = await updateDoc(req.params.id,Category,req.body);
+        const old = await updateDoc(req.params.id,subs,req.body);
         return res.status(200).send({success:true,old,new:req.body,message:'Petición exitosa'});
     } catch (error) {
         next(error);
     }
 }
 
-export const deleteCategory = async (req,res,next) => {
+export const deleteSub = async (req,res,next) => {
     try {
         const id = req.params.id
-        const deleted = await deleteDoc(id,Category);
+        const deleted = await deleteDoc(id,subs);
         if(!deleted) return res.status(400).send({success:false,message:'Petición inválida'});
         return res.status(200).send({success:true,message:'Petición exitosa'});
     } catch (error) {
