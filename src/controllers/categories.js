@@ -1,4 +1,4 @@
-import { deleteDoc, getDoc, getDocs, updateDoc } from '.';
+import { deleteDoc, updateDoc } from '.';
 import Category from '../models/store/Category';
 
 export const createCategory = async (req,res,next) => {
@@ -13,7 +13,7 @@ export const createCategory = async (req,res,next) => {
 
 export const getCategories = async (req,res,next) => {
     try {
-        const docs = await getDocs(Category);
+        const docs = await Category.find().populate('brand');
         return res.status(200).send({success:true,message:'Petición exitosa',docs});
     } catch (error) {
         next(error);       
@@ -23,7 +23,7 @@ export const getCategories = async (req,res,next) => {
 export const getCategoriesBy = async (req,res,next) => {
     try {
         const id = req.params.id;
-        const docs = await Category.find({id});
+        const docs = await Category.find({id}).populate('brand');
         if(docs.length === 0) return res.status(404).send({success:false,message:'Sin registros',docs:[]});
         return res.status(200).send({success:true,message:'Petición exitosa',docs});
     } catch (error) {
@@ -33,7 +33,7 @@ export const getCategoriesBy = async (req,res,next) => {
 
 export const getCategoryById = async (req,res,next) => {
     try {
-        const doc = await getDoc(req.params.id,Category);
+        const doc = await Category.findById(req.params.id).populate('brand');
         if(!doc) return res.status(404).send({success:false,message:'Sin registros'});
         return res.status(200).send({success:true,message:'Petición exitosa',doc});
     } catch (error) {
