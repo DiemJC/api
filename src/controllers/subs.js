@@ -43,7 +43,8 @@ export const getsubsById = async (req,res,next) => {
 
 export const updateSub = async (req,res,next) => {
     try {
-        const old = await updateDoc(req.params.id,subs,req.body);
+        const old = await SubCategory.findByIdAndUpdate(req.params.id,req.body)
+        console.log(old);
         return res.status(200).send({success:true,old,new:req.body,message:'Petición exitosa'});
     } catch (error) {
         next(error);
@@ -53,7 +54,7 @@ export const updateSub = async (req,res,next) => {
 export const deleteSub = async (req,res,next) => {
     try {
         const id = req.params.id
-        const deleted = await deleteDoc(id,subs);
+        const deleted = await deleteDoc(id,SubCategory);
         if(!deleted) return res.status(400).send({success:false,message:'Petición inválida'});
         return res.status(200).send({success:true,message:'Petición exitosa'});
     } catch (error) {
