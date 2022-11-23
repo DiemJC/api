@@ -22,8 +22,8 @@ export const getSubs = async (req,res,next) => {
 
 export const getSubsBy = async (req,res,next) => {
     try {
-        const id = req.params.id;
-        const docs = await SubCategory.find({id});
+        const category = req.params.category;
+        const docs = await SubCategory.find({category}).populate('category');
         if(docs.length === 0) return res.status(404).send({success:false,message:'Sin registros',docs:[]});
         return res.status(200).send({success:true,message:'Petición exitosa',docs});
     } catch (error) {
