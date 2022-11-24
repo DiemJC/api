@@ -6,6 +6,7 @@ import { ErrorMiddleware } from './middlewares/ErrorMiddleware';
 
 export const app = express();
 
+//request - middlewares - response - endpoints
 app.use(cors());
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());

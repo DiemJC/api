@@ -1,20 +1,19 @@
 import { Schema , model } from 'mongoose';
 
 const Product = new Schema({
-    code:{type:String,required:true,unique:true},
-    name:{type:String,required:true,unique:true},
-    slug:{type:String,required:true},
-    status:{type:Boolean,default:false},
-    extracto:{type:String},
-    createdAt:{type:Date,default:Date.now()},
+    code:{type:String,required:true,unique:true}, //Código de barras
     brand:{type:Schema.ObjectId,ref:'Brand'},
     category:{type:Schema.ObjectId,ref:'SubCategory'},
+    name:{type:String,required:true,unique:true},
+    slug:{type:String,required:true},
     price:{type:Number,default:0},
-    cover:{type:String,required:true},
-    stock:{type:Number,default:0},
-    status:{type:Boolean,default:false},
-    discount:{type:Boolean,default:false},
-    createdAt:{type:Date,default:Date.now()},
+    stock:{type:Number,default:0}, //Input number
+    //---NO SE AGREGAN --//
+    status:{type:Boolean,default:false}, //No se coloca de momento
+    //extracto:{type:String}, //
+    cover:{type:String,required:true}, //No se agregaría de momento
+    discount:{type:Boolean,default:false}, //No se gregaria
+    createdAt:{type:Date,default:Date.now()}, //Se crea por defecto
     updatedAt:{type:Date}
 });
 

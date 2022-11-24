@@ -4,13 +4,15 @@ import { Server } from 'socket.io';
 import { app } from './app';
 import {} from 'dotenv/config';
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 const db = process.env.MONGO_URL;
 
 const server = createServer(app);
+
+// NO ES RELEVANTE DE MOMENTO
 const io = new Server(server,{cors:'*'});
 
-let users = [];
+// let users = [];
 
 io.on('connection',socket => {
     console.log('A new connection received');

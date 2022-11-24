@@ -8,5 +8,6 @@ export const api = Router();
 
 api.get('/',(_,res) => res.status(200).json({message:'Todo ok'}));
 api.post('/signin',SignIn);
+
 api.use('/api',priv);
 api.use('/pub',pub);
