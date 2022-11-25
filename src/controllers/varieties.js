@@ -1,29 +1,29 @@
 import { deleteDoc, getDoc, getDocs, updateDoc } from '.';
-import Product from '../models/store/Product';
+import Variety from '../models/store/Variety';
 
-export const createProduct = async (req,res,next) => {
+export const createVariety = async (req,res,next) => {
     try {
-        const product = new Product(req.body);
-        await product.save();
+        const variety = new Variety(req.body);
+        await variety.save();
         return res.status(200).send({success:true,message:'Registro exitoso'});
     } catch (error) {
         next(error);
     }
 }
 
-export const getProducts = async (req,res,next) => {
+export const getVarieties = async (req,res,next) => {
     try {
-        const docs = await getDocs(Product).populate('brand').populate('sub');
+        const docs = await getDocs(Variety).populate('product').populate('createdBy');
         return res.status(200).send({success:true,message:'Petición exitosa',docs});
     } catch (error) {
         next(error);       
     }
 }
 
-export const getProductsBy = async (req,res,next) => {
+export const getVarietiesBy = async (req,res,next) => {
     try {
         const id = req.params.id;
-        const docs = await Product.find({id}).populate('brand').populate('sub');;
+        const docs = await Variety.find({id}).populate('product').populate('createdBy');
         if(docs.length === 0) return res.status(404).send({success:false,message:'Sin registros',docs:[]});
         return res.status(200).send({success:true,message:'Petición exitosa',docs});
     } catch (error) {
@@ -31,9 +31,9 @@ export const getProductsBy = async (req,res,next) => {
     }
 }
 
-export const getProductById = async (req,res,next) => {
+export const getVarietyById = async (req,res,next) => {
     try {
-        const doc = await getDoc(req.params.id,Product).populate('brand').populate('sub');;
+        const doc = await getDoc(req.params.id,Variety).populate('product').populate('createdBy');
         if(!doc) return res.status(404).send({success:false,message:'Sin registros'});
         return res.status(200).send({success:true,message:'Petición exitosa',doc});
     } catch (error) {
@@ -41,19 +41,19 @@ export const getProductById = async (req,res,next) => {
     }
 }
 
-export const updateProduct = async (req,res,next) => {
+export const updateVariety = async (req,res,next) => {
     try {
-        const old = await updateDoc(req.params.id,Product,req.body);
+        const old = await updateDoc(req.params.id,Variety,req.body);
         return res.status(200).send({success:true,old,new:req.body,message:'Petición exitosa'});
     } catch (error) {
         next(error);
     }
 }
 
-export const deleteProduct = async (req,res,next) => {
+export const deleteVariety = async (req,res,next) => {
     try {
         const id = req.params.id
-        const deleted = await deleteDoc(id,Product);
+        const deleted = await deleteDoc(id,Variety);
         if(!deleted) return res.status(400).send({success:false,message:'Petición inválida'});
         return res.status(200).send({success:true,message:'Petición exitosa'});
     } catch (error) {

@@ -6,6 +6,7 @@ const Product = new Schema({
     sub:{type:Schema.ObjectId,ref:'SubCategory'}, //----
     name:{type:String,required:true,unique:true}, //----
     slug:{type:String,required:true}, //----
+    price:{type:Number,default:0}, //----
     //--Sin agregar en productos agregar en update --//
     stock:{type:Number,default:0}, //Input number
     updatedAt:{type:Date},
