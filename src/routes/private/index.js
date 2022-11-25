@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { CreateUser } from '../../controllers/users';
-import { prod } from '../public/prod';
+import { prod } from './prod';
 import { brand } from './brand';
 import { cat } from './category';
 import { sub } from './subs';
