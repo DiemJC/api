@@ -4,7 +4,7 @@
 
 - [ ] Analizar necesidad de modelos
 
-- [ ] Migrar todos los modelos necesarios
+- [x] Migrar todos los modelos necesarios
 
 - [ ] Completar modelos necesarios
 

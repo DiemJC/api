@@ -13,6 +13,7 @@ export const SignIn = async (req,res,next) => {
         if(!isValidPassword) return res.status(401).send({success:false,message:'Usuario y/o contraseña inválidos'});
         const user = await User.findOne({email});
         if(!user) return res.status(401).send({message:'Usuario y/o contraseña inválidos'});
+        await User.findByIdAndUpdate(user._id._bsontype,{lastlogin:Date.now()});
         const token = SignToken(user);
         res.status(200).send({success:true,message:'Bienvenido de nuevo',token,id:user._id,role:user.role});
     } catch (error) {
