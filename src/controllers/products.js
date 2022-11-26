@@ -13,7 +13,7 @@ export const createProduct = async (req,res,next) => {
 
 export const getProducts = async (req,res,next) => {
     try {
-        const docs = await getDocs(Product).populate('brand').populate('sub');
+        const docs = await Product.find().populate('brand').populate('sub');
         return res.status(200).send({success:true,message:'Petición exitosa',docs});
     } catch (error) {
         next(error);       
@@ -33,7 +33,7 @@ export const getProductsBy = async (req,res,next) => {
 
 export const getProductById = async (req,res,next) => {
     try {
-        const doc = await getDoc(req.params.id,Product).populate('brand').populate('sub');;
+        const doc = await Product.findById(req.params.id).populate('brand').populate('sub');;
         if(!doc) return res.status(404).send({success:false,message:'Sin registros'});
         return res.status(200).send({success:true,message:'Petición exitosa',doc});
     } catch (error) {
