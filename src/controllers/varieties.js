@@ -43,7 +43,8 @@ export const getVarietyById = async (req,res,next) => {
 
 export const updateVariety = async (req,res,next) => {
     try {
-        const old = await updateDoc(req.params.id,Variety,req.body);
+        const updatedAt = Date.now();
+        const old = await updateDoc(req.params.id,Variety,{...req.body,updatedAt});
         return res.status(200).send({success:true,old,new:req.body,message:'Petición exitosa'});
     } catch (error) {
         next(error);
