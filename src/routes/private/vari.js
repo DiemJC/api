@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { createSub, deleteSub, updateSub } from '../../controllers/subs';
+import { createVariety, deleteVariety, updateVariety } from '../../controllers/varieties';
 
 export const vari = Router();
 
 vari.post('/new',createVariety);
-vari.put('/update/:id',updatevari);
-vari.delete('/delete/:id',deletevari);
+vari.put('/update/:id',updateVariety);
+vari.delete('/delete/:id',deleteVariety);
